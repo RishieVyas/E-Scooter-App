@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "Lime App",
+    "slug": "LimeApp",
+    "version": "1.0.0",
+    "scheme": "LimeApp",
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/lime_logo.png"
+    },
+    "experiments": {
+      "typedRoutes": true,
+      "tsconfigPaths": true
+    },
+    "orientation": "portrait",
+    "icon": "./assets/lime_logo.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/lime_logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.vadinsavin.LimeApp"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/lime_logo.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.vadinsavin.LimeApp"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "@rnmapbox/maps",
+        {
+          "RNMapboxMapsDownloadToken": "XXXXX Your Mapbox secret key here XXXXX",
+          "RNMapboxMapsVersion": "11.0.0"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Show current location on map."
+        }
+      ]
+    ]
+  }
+}

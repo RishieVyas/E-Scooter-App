@@ -1,0 +1,38 @@
+import Mapbox, { Camera, LocationPuck, MapView } from '@rnmapbox/maps';
+
+import LineRoute from './LineRoute';
+import ScooterMarkers from './ScooterMarkers';
+
+import { useRide } from '~/providers/RideProvider';
+import { useScooter } from '~/providers/ScooterProvider';
+import { StatusBar, Platform, View } from 'react-native';
+
+Mapbox.setAccessToken(process.env.EXPO_PUBLIC_MAPBOX_KEY || '');
+
+export default function Map() {
+  const { directionCoordinates } = useScooter();
+  const { ride, rideRoute } = useRide();
+
+  const showMarkers = !ride;
+
+  return (
+    <View style={{
+      flex: 1,
+      paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
+    }}>
+    <MapView style={{ flex: 1}} styleURL="mapbox://styles/mapbox/street-v12">
+      <Camera followZoomLevel={14} followUserLocation />
+      <LocationPuck puckBearingEnabled puckBearing="heading" pulsing={{ isEnabled: true }} />
+
+      {rideRoute.length > 0 && <LineRoute id="rideRoute" coordinates={rideRoute} />}
+
+      {showMarkers && (
+        <>
+          <ScooterMarkers />
+          {directionCoordinates && <LineRoute coordinates={directionCoordinates} />}
+        </>
+      )}
+    </MapView>
+    </View>
+  );
+}
